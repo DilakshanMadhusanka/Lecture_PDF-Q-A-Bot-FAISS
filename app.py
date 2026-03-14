@@ -19,7 +19,6 @@ VECTOR_PATH = "vectorstore"
 
 os.makedirs(DATA_PATH, exist_ok=True)
 
-# Upload PDF
 uploaded_file = st.file_uploader("Upload your Lecture PDF", type="pdf")
 
 if uploaded_file:
@@ -29,12 +28,8 @@ if uploaded_file:
     with open(pdf_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
 
-    st.success(f"File saved: {uploaded_file.name}")
-
-    # call indexing function
     index_pdf(pdf_path)
 
-# Load FAISS vectorstore
 if os.path.exists(VECTOR_PATH):
 
     embeddings = OpenAIEmbeddings(api_key=openai_api_key)
