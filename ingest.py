@@ -4,12 +4,13 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 import os
 from dotenv import load_dotenv
+import tempfile
 
 load_dotenv()
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-loader = PyPDFLoader("data/GAN.pdf")
+loader = PyPDFLoader(pdf_path)
 documents = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(

@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 import os
+import tempfile
 
 load_dotenv()
 
@@ -12,6 +13,21 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 
 st.set_page_config(page_title="LECTURE PDF CHATBOT")
 st.title("Lecture PDF Q&A Bot")
+
+DATA_PATH = "data"
+
+uploaded_file = st.file_uploader("Upload your Lecture PDF", type="pdf")
+
+if uploaded_file is not None:
+    st.success("PDF uploaded successfully!")
+    
+if uploaded_file is not None:
+    pdf_path = os.path.join(DATA_PATH, uploaded_file.name)
+
+    with open(pdf_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+        
+    st.success(f"File saved successfully in data folder: {uploaded_file.name}")
 
 embeddings = OpenAIEmbeddings(
     api_key=openai_api_key
