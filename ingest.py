@@ -8,7 +8,7 @@ import streamlit as st
 
 load_dotenv()
 
-openai_api_key = st.secrets["OPENAI_API_KEY"]
+openai_api_key = st.secrets.get("OPENAI_API_KEY")
 
 VECTOR_PATH = "vectorstore"
 
